@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 
+## How to install dependance
+# pip2 install numpy/scipy/control/slycot
+# if pip not working, use spt-get install python-scipy
+# do not use python3, since ros do not support python3(needs a lot additional dependance)
+
 import time
 import numpy as np
 import math
