@@ -28,7 +28,7 @@ kd = 0.0705
 lqrPub = rospy.Publisher("/MPC_K", PoseWithCovariance, queue_size=10)
 
 
-def publish_gain(K):
+def publish_gain():
     # K = K.tolist()
     
     # msgMPC = Array()
@@ -48,9 +48,9 @@ def publish_gain(K):
 
 
 
-def timer_callback(event,K):
+def timer_callback(event):
 
-    publish_gain(K)
+    publish_gain()
 
 
 

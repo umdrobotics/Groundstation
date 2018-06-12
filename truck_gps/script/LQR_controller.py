@@ -14,12 +14,7 @@ import control
 
 import rospy
 from geometry_msgs.msg import PointStamped, Point, PoseWithCovariance
-from truck_gps.msg import Array, Velocity, Acceleration, AttitudeQuaternion
 
-# Store velocity & attitude & acceleration data
-DroneVelocity = Point()
-DroneAcceleration = Point()
-DroneAttitude = Point()
 
 
 dt = 0.1
@@ -77,34 +72,6 @@ def Get_LQR_controller():
 
 
 
-
-
-def Drone_velocity_Callback(data):
-    global DroneVelocity
-
-    DroneVelocity.x = data.vx
-    DroneVelocity.y = data.vy
-    DroneVelocity.z = data.vz
-
-def Drone_acceleration_Callback(data):
-    global DroneAcceleration
-
-    DroneAcceleration.x = data.ax
-    DroneAcceleration.y = data.ay
-    DroneAcceleration.z = data.az
-
-def Drone_attitude_Callback(data):
-    global DroneAttitude
-
-    roll  = math.atan2(2.0 * (data.q3 * data.q2 + data.q0 * data.q1) , 1.0 - 2.0 * (data.q1 * data.q1 + data.q2 * data.q2))
-    pitch = math.asin(2.0 * (data.q2 * data.q0 - data.q3 * data.q1))
-    yaw   = math.atan2(2.0 * (data.q3 * data.q0 + data.q1 * data.q2) , - 1.0 + 2.0 * (data.q0 * data.q0 + data.q1 * data.q1))
-
-    DroneAttitude.x = roll
-    DroneAttitude.y = pitch
-    DroneAttitude.z = yaw
-
-
 def TimerCallback(event):
 
     K = Get_LQR_controller()
@@ -116,10 +83,6 @@ def main():
 
     rospy.init_node('LQR_controller', anonymous=True)
 
-    rospy.Subscriber("/dji_sdk/velocity", Velocity, Drone_velocity_Callback , queue_size=2)
-    rospy.Subscriber("/dji_sdk/acceleration",Acceleration, Drone_acceleration_Callback, queue_size=2)
-    rospy.Subscriber("/dji_sdk/attitude_quaternion", AttitudeQuaternion, Drone_attitude_Callback,  queue_size=2)
-    
     dTimeStep = 0.1
     rospy.Timer(rospy.Duration(dTimeStep), TimerCallback)
 
