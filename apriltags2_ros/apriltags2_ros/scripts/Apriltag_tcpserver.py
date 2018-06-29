@@ -48,7 +48,7 @@ except socket.error as e:
 
 
 conn, addr = s.accept() # blocking, until this func get one conn & addr from the establised connections queue
-print("Connected to client:", addr, "! Start sending data.")
+print("Connected to client:", addr, "Start sending data.")
 
 
 
