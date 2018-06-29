@@ -30,6 +30,8 @@ def callback(vecTagDetections):
 # Setup ROS
 rospy.init_node('Apriltag_server', anonymous=True)
 
+print "Initialized ROS, waiting for connections......"
+
 
 # Setup Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
