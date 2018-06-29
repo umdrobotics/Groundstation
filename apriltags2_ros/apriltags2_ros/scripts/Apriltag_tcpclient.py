@@ -7,7 +7,7 @@ from geometry_msgs.msg import PoseStamped
 import socket
 import re
 
-TCP_IP = '127.0.0.1'
+TCP_IP = '192.168.1.17'
 TCP_PORT = 9999
 BUFFER_SIZE = 1024
 

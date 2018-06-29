@@ -6,7 +6,7 @@ from apriltags2_ros.msg import AprilTagDetectionArray
 
 import socket
 
-TCP_IP = '127.0.0.1'
+TCP_IP = '192.168.1.52'
 TCP_PORT = 9999
 BUFFER_SIZE = 1024
 
