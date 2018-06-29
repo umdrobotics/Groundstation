@@ -6,7 +6,7 @@ from apriltags2_ros.msg import AprilTagDetectionArray
 
 import socket
 
-TCP_IP = '127.0.0.1'
+TCP_IP = '192.168.1.17'
 TCP_PORT = 9999
 BUFFER_SIZE = 1024
 
@@ -38,6 +38,7 @@ print("Initialized ROS, waiting for connections......")
 
 # Setup Socket
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 try:
     s.bind((TCP_IP, TCP_PORT))
