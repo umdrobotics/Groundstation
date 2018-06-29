@@ -13,6 +13,9 @@ BUFFER_SIZE = 1024
 # Core function: everytime received a msg, send it out in socket
 def callback(vecTagDetections):
 
+    if not vecTagDetections:
+        return
+
     data = "###"
     data = data + str(vecTagDetections.detections[0].pose.pose.pose.position.x) + ","
     data = data + str(vecTagDetections.detections[0].pose.pose.pose.position.y) + ","
