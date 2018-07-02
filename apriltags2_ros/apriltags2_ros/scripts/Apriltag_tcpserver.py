@@ -6,24 +6,21 @@ from apriltags2_ros.msg import AprilTagDetectionArray
 
 import socket
 
-import logging
-from io import FileIO, BufferedWriter
+import time
+
 
 
 TCP_IP = '192.168.1.17'
 TCP_PORT = 9999
 BUFFER_SIZE = 1024
 
+counter = 0
 
-logger = logging.getLogger('Server_')
-fileHandler_message = logging.StreamHandler(BufferedWriter(FileIO("Server_" + time.strftime("%Y%m%d-%H%M%S") + ".log", "w")))
-logger.addHandler(fileHandler_message)
-formatter_message = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-fileHandler_message.setFormatter(formatter_message)
-logger.setLevel(logging.DEBUG)
 
 # Core function: everytime received a msg, send it out in socket
 def callback(vecTagDetections):
+
+    global counter
 
     if not vecTagDetections.detections: # if vector is empty
         return
@@ -39,7 +36,13 @@ def callback(vecTagDetections):
     data = data + str(vecTagDetections.detections[0].pose.pose.pose.orientation.w)
     data = data + "!!!"
 
-    conn.send(data)
+    try:
+        conn.send(data)
+    finally:
+        counter += 1
+        print(time.time(), data, counter)
+    
+
 
 
 
@@ -67,7 +70,6 @@ print("Connected to client:", addr, "Start sending data.")
 sub1 = rospy.Subscriber("/usb_cam/tag_detections", AprilTagDetectionArray, callback)
 
 rospy.spin()
-conn.close()
-logging.shutdown()
+
 
 
