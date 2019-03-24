@@ -22,6 +22,8 @@ def callback(vecTagDetections):
 
     global counter
 
+    print("------------------------------------")
+
     if not vecTagDetections.detections: # if vector is empty
         return
 

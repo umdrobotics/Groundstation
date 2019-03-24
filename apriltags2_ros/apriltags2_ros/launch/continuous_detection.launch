@@ -1,6 +1,8 @@
+<?xml version="1.0"?>
 <launch>
   <arg name="launch_prefix" default="" /> <!-- set to value="gdbserver localhost:10000" for remote debugging -->
   <arg name="node_namespace" default="apriltags2_ros_continuous_node" />
+  <arg name="video_counter" />
 
 
   <!-- Set parameters -->
@@ -35,6 +37,18 @@
   </node>
 
   <node pkg = "apriltags2_ros" type="Apriltag_tcpserver.py" name="Apriltag_server" output="screen">
+  </node>
+
+  <node name="record_raw_image" pkg = "image_view" type="video_recorder" output="screen">
+  <remap from="image" to="/usb_cam/image_raw"/>
+  <param name="filename" type="str" value="/home/ubuntu/RecordVideo/RawImage/$(arg video_counter).avi"/>
+  <param name="fps" type="int" value="30"/>
+  </node>
+
+  <node name="record_detection_image" pkg = "image_view" type="video_recorder" output="screen">
+  <remap from="image" to="/usb_cam/tag_detections_image"/>
+  <param name="filename" type="str" value="/home/ubuntu/RecordVideo/DetectionImage/$(arg video_counter).avi"/>
+  <param name="fps" type="int" value="30"/>
   </node>
 	 
 

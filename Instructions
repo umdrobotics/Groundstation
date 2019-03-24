@@ -1,0 +1,41 @@
+Here is the instructions of latest progress:
+//when we need run instructions on manifold52, just use the sshed terminal 
+1) 		    
+ssh manifold51 	&&
+sudo su && 
+
+/home/ubuntu/max_performance && date --set="$(ssh ubuntu@192.168.1.17 date)" && roslaunch dji_sensors.launch   
+
+2) 
+roslaunch apriltags2_ros continuous_detection.launch video_counter:=$(date +%H_%M_%S)
+            
+3) 
+ssh ubuntu@192.168.1.197
+rosrun planner truck.py 	
+
+// rosrun truck_gps fake_truck_GPS.py
+
+4) 
+ssh manifold51 	;
+rosrun apriltags2_ros Apriltag_tcpclient.py   
+
+5) 	# operation order: 1-3-5-8
+ssh manifold51 	;
+rosrun navigation navigation_menu   
+
+6) 	
+ssh manifold51 	;
+roslaunch navigation navigation_node2.launch
+
+
+
+Note 0: # if master changed from manifold52 to manifold51, no need to modify any of the tcp server or the client. But if Ground station changes from NUC6i7 to NUC6i5, do remember to modify the ip addr of both tcp server and client.
+
+Note 1: how to ssh without passward
+ssh-keygen -t rsa
+scp ~/.ssh/id_rsa.pub ubuntu@192.168.1.51:~/.ssh/authorized_keys
+
+Note 2: how to sudo without passward
+echo 'ubuntu' | sudo -S xxxxxxxxxxx
+
+
