@@ -1,8 +1,8 @@
 Here is the instructions of latest progress:
 //when we need run instructions on manifold52, just use the sshed terminal 
 1) 		    
-ssh manifold51 	&&
-sudo su && 
+ssh manifold51 	;
+sudo su 
 
 /home/ubuntu/max_performance && date --set="$(ssh ubuntu@192.168.1.17 date)" && roslaunch dji_sensors.launch   
 
@@ -14,6 +14,7 @@ ssh ubuntu@192.168.1.197
 rosrun planner truck.py 	
 
 // rosrun truck_gps fake_truck_GPS.py
+// rosrun truck_gps simulating_moving_target.py 
 
 4) 
 ssh manifold51 	;
